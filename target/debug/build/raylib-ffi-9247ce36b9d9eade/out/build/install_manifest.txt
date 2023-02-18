@@ -1,7 +1,0 @@
-C:/Projects/rust/target/debug/build/raylib-ffi-9247ce36b9d9eade/out/lib/raylib.lib
-C:/Projects/rust/target/debug/build/raylib-ffi-9247ce36b9d9eade/out/include/raylib.h
-C:/Projects/rust/target/debug/build/raylib-ffi-9247ce36b9d9eade/out/include/rlgl.h
-C:/Projects/rust/target/debug/build/raylib-ffi-9247ce36b9d9eade/out/include/raymath.h
-C:/Projects/rust/target/debug/build/raylib-ffi-9247ce36b9d9eade/out/lib/pkgconfig/raylib.pc
-C:/Projects/rust/target/debug/build/raylib-ffi-9247ce36b9d9eade/out/lib/cmake/raylib/raylib-config-version.cmake
-C:/Projects/rust/target/debug/build/raylib-ffi-9247ce36b9d9eade/out/lib/cmake/raylib/raylib-config.cmake
