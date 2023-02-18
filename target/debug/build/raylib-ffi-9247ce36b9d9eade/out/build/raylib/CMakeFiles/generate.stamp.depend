@@ -1,0 +1,19 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.22/Modules/CPack.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CPackComponent.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/FindOpenGL.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-3.22/Templates/CPackConfig.cmake.in
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/CompileDefinitions.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/GlfwImport.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/InstallConfigurations.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/JoinPaths.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/LibraryConfigurations.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/LibraryPathToLinkerFlags.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/PackConfigurations.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/PopulateConfigVariablesLocally.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/cmake/raylib-config-version.cmake
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/raylib.pc.in
+C:/Users/Brett/.cargo/registry/src/github.com-1ecc6299db9ec823/raylib-ffi-4.2.0/third_party/raylib/src/CMakeLists.txt

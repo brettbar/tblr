@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Projects\rust\target\debug\build\raylib-ffi-9247ce36b9d9eade\out\build\CMakeFiles\f71daea20f719f070a5e2a923feecc48\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3A67BF5C-C482-3E08-A6C0-202C1F474A08}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
