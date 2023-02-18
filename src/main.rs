@@ -11,7 +11,7 @@ fn main() {
         let title = CString::new("my rust window").unwrap();
         let text = CString::new("Hello, World!").unwrap();
 
-        InitWindow(800, 450, title.as_ptr());
+        InitWindow(screen_width, screen_height, title.as_ptr());
 
         SetTargetFPS(60);
 
