@@ -1,11 +1,9 @@
 mod player;
 
-use raylib_ffi::*;
-use std::{
-    ffi::{CString},
-};
 use crate::player::player_hub;
 use crate::player::player_hub::Renderable;
+use raylib_ffi::*;
+use std::ffi::CString;
 
 fn main() {
     println!("Hello, world!");
@@ -78,8 +76,8 @@ fn main() {
             }
 
             camera.target = Vector2 {
-                x: players[0].Transform.x,
-                y: players[0].Transform.y,
+                x: players[0].Transform.x + (players[0].Transform.width / 2.),
+                y: players[0].Transform.y + (players[0].Transform.height / 2.),
             };
 
             // Draw
