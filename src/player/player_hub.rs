@@ -1,9 +1,7 @@
 use raylib_ffi::*;
-use std::{
-    ffi::{c_char},
-};
+use std::ffi::CString;
 
-// player_hub is the factory for player creation 
+// player_hub is the factory for player creation
 #[derive(Clone, Copy)]
 pub struct Player {
     name: &'static str,
@@ -14,8 +12,8 @@ pub struct Player {
 impl Player {
     pub fn new(name: &'static str, color: Color) -> Self {
         Player {
-            name: name,
-            color: color,
+            name,
+            color,
             transform: Rectangle {
                 x: 0.,
                 y: 0.,
@@ -42,7 +40,7 @@ impl Renderable for Player {
             );
 
             DrawText(
-                self.name.to_owned().as_ptr() as *const c_char,
+                CString::new(self.name).unwrap().into_raw(),
                 self.transform.x as i32 + 200,
                 self.transform.y as i32 + 200,
                 32,
