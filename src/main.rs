@@ -5,45 +5,38 @@ use crate::player::player_hub::Renderable;
 use raylib_ffi::*;
 use std::ffi::CString;
 
-fn main() {
-    println!("Hello, world!");
+const RED: Color = Color {
+    r: 255,
+    g: 0,
+    b: 0,
+    a: 255,
+};
+const GREY: Color = Color {
+    r: 44,
+    g: 44,
+    b: 44,
+    a: 255,
+};
+const GREEN: Color = Color {
+    r: 0,
+    g: 255,
+    b: 0,
+    a: 255,
+};
 
+fn main() {
     let screen_width = 1200;
     let screen_height = 800;
 
     unsafe {
         let title = CString::new("my rust window").unwrap();
-        let _text = CString::new("Hello, World!").unwrap(); // Prefixed as unused for now
-
-        let white = Color {
-            r: 255,
-            g: 255,
-            b: 255,
-            a: 255,
-        };
 
         SetConfigFlags(ConfigFlags_FLAG_WINDOW_RESIZABLE);
         InitWindow(screen_width, screen_height, title.as_ptr());
 
         let mut players: Vec<player_hub::Player> = vec![
-            player_hub::Player::new(
-                "Bob",
-                Color {
-                    r: 255,
-                    g: 0,
-                    b: 0,
-                    a: 255,
-                },
-            ),
-            player_hub::Player::new(
-                "Sally",
-                Color {
-                    r: 0,
-                    g: 255,
-                    b: 0,
-                    a: 255,
-                },
-            ),
+            player_hub::Player::new("Bob", RED),
+            player_hub::Player::new("Sally", GREEN),
         ];
 
         let mut camera = Camera2D {
@@ -64,8 +57,7 @@ fn main() {
         while !WindowShouldClose() {
             // Update
 
-            // These look backwards but its to keep the camera "fixed"
-            // On player 1
+            // These look backwards but its to keep the camera "fixed" on player 1
             if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
                 players[0].transform.y += 2.;
             }
@@ -93,7 +85,7 @@ fn main() {
             {
                 BeginMode2D(camera);
                 {
-                    ClearBackground(white);
+                    ClearBackground(GREY);
 
                     for player in players.iter() {
                         player.draw();
