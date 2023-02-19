@@ -1,52 +1,48 @@
 use raylib_ffi::*;
-use std::{
-    ffi::{c_char},
-};
+use std::ffi::CString;
 
-// player_hub is the factory for player creation 
+// player_hub is the factory for player creation
 #[derive(Clone, Copy)]
-#[allow(non_snake_case)]
 pub struct Player {
     name: &'static str,
     color: Color,
-    pub Transform: Rectangle,
+    pub transform: Rectangle,
 }
 
 impl Player {
     pub fn new(name: &'static str, color: Color) -> Self {
         Player {
-            name: name,
-            color: color,
-            Transform: Rectangle {
+            name,
+            color,
+            transform: Rectangle {
                 x: 0.,
                 y: 0.,
-                width: 400.,
-                height: 400.,
+                width: 200.,
+                height: 200.,
             },
         }
     }
 }
 
-#[allow(non_snake_case)]
 pub trait Renderable {
-    fn Draw(&self);
+    fn draw(&self);
 }
 
 impl Renderable for Player {
-    fn Draw(&self) {
+    fn draw(&self) {
         unsafe {
             DrawRectangle(
-                self.Transform.x as i32,
-                self.Transform.y as i32,
-                self.Transform.width as i32,
-                self.Transform.height as i32,
+                self.transform.x as i32,
+                self.transform.y as i32,
+                self.transform.width as i32,
+                self.transform.height as i32,
                 self.color,
             );
 
             DrawText(
-                self.name.to_owned().as_ptr() as *const c_char,
-                self.Transform.x as i32 + 200,
-                self.Transform.y as i32 + 200,
+                CString::new(self.name).unwrap().into_raw(),
+                self.transform.x as i32 + (self.transform.width / 2.) as i32,
+                self.transform.y as i32 + (self.transform.height / 2.) as i32,
                 32,
                 Color {
                     r: 255,
