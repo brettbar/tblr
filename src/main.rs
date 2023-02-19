@@ -49,8 +49,8 @@ fn main() {
 
         let mut camera = Camera2D {
             target: Vector2 {
-                x: players[0].Transform.x - (players[0].Transform.width as f32 / 2.),
-                y: players[0].Transform.y - (players[0].Transform.height as f32 / 2.),
+                x: players[0].transform.x - (players[0].transform.width as f32 / 2.),
+                y: players[0].transform.y - (players[0].transform.height as f32 / 2.),
             },
             offset: Vector2 {
                 x: screen_width as f32 / 2.,
@@ -65,21 +65,21 @@ fn main() {
         while !WindowShouldClose() {
             // Update
             if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
-                players[0].Transform.y -= 2.;
+                players[0].transform.y -= 2.;
             }
             if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
-                players[0].Transform.x -= 2.;
+                players[0].transform.x -= 2.;
             }
             if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
-                players[0].Transform.y += 2.;
+                players[0].transform.y += 2.;
             }
             if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
-                players[0].Transform.x += 2.;
+                players[0].transform.x += 2.;
             }
 
             camera.target = Vector2 {
-                x: players[0].Transform.x,
-                y: players[0].Transform.y,
+                x: players[0].transform.x,
+                y: players[0].transform.y,
             };
 
             // Draw
@@ -90,7 +90,7 @@ fn main() {
                     ClearBackground(white);
 
                     for player in players.iter() {
-                        player.Draw();
+                        player.draw();
                     }
                 }
                 EndMode2D();
