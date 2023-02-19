@@ -1,61 +1,11 @@
+mod player;
+
 use raylib_ffi::*;
 use std::{
-    borrow::{Borrow, BorrowMut},
-    ffi::{c_char, CString},
+    ffi::{CString},
 };
-
-#[derive(Clone, Copy)]
-struct Player {
-    name: &'static str,
-    color: Color,
-    transform: Rectangle,
-}
-
-impl Player {
-    pub fn new(name: &'static str, color: Color) -> Self {
-        Player {
-            name: name,
-            color: color,
-            transform: Rectangle {
-                x: 0.,
-                y: 0.,
-                width: 400.,
-                height: 400.,
-            },
-        }
-    }
-}
-
-trait Renderable {
-    fn draw(&self);
-}
-
-impl Renderable for Player {
-    fn draw(&self) {
-        unsafe {
-            DrawRectangle(
-                self.transform.x as i32,
-                self.transform.y as i32,
-                self.transform.width as i32,
-                self.transform.height as i32,
-                self.color,
-            );
-
-            DrawText(
-                self.name.to_owned().as_ptr() as *const c_char,
-                self.transform.x as i32 + 200,
-                self.transform.y as i32 + 200,
-                32,
-                Color {
-                    r: 255,
-                    g: 255,
-                    b: 255,
-                    a: 255,
-                },
-            );
-        }
-    }
-}
+use crate::player::player_hub;
+use crate::player::player_hub::Renderable;
 
 fn main() {
     println!("Hello, world!");
@@ -65,7 +15,7 @@ fn main() {
 
     unsafe {
         let title = CString::new("my rust window").unwrap();
-        let text = CString::new("Hello, World!").unwrap();
+        let _text = CString::new("Hello, World!").unwrap(); // Prefixed as unused for now
 
         let white = Color {
             r: 255,
@@ -76,8 +26,8 @@ fn main() {
 
         InitWindow(screen_width, screen_height, title.as_ptr());
 
-        let mut players: Vec<Player> = vec![
-            Player::new(
+        let mut players: Vec<player_hub::Player> = vec![
+            player_hub::Player::new(
                 "Bob",
                 Color {
                     r: 255,
@@ -86,7 +36,7 @@ fn main() {
                     a: 255,
                 },
             ),
-            Player::new(
+            player_hub::Player::new(
                 "Sally",
                 Color {
                     r: 0,
@@ -99,8 +49,8 @@ fn main() {
 
         let mut camera = Camera2D {
             target: Vector2 {
-                x: players[0].transform.x - (players[0].transform.width as f32 / 2.),
-                y: players[0].transform.y - (players[0].transform.height as f32 / 2.),
+                x: players[0].Transform.x - (players[0].Transform.width as f32 / 2.),
+                y: players[0].Transform.y - (players[0].Transform.height as f32 / 2.),
             },
             offset: Vector2 {
                 x: screen_width as f32 / 2.,
@@ -114,23 +64,22 @@ fn main() {
 
         while !WindowShouldClose() {
             // Update
-
-            if IsKeyDown(KeyboardKey_KEY_W) {
-                players[0].transform.y -= 2.;
+            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
+                players[0].Transform.y -= 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_A) {
-                players[0].transform.x -= 2.;
+            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
+                players[0].Transform.x -= 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_S) {
-                players[0].transform.y += 2.;
+            if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
+                players[0].Transform.y += 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_D) {
-                players[0].transform.x += 2.;
+            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
+                players[0].Transform.x += 2.;
             }
 
             camera.target = Vector2 {
-                x: players[0].transform.x,
-                y: players[0].transform.y,
+                x: players[0].Transform.x,
+                y: players[0].Transform.y,
             };
 
             // Draw
@@ -141,7 +90,7 @@ fn main() {
                     ClearBackground(white);
 
                     for player in players.iter() {
-                        player.draw();
+                        player.Draw();
                     }
                 }
                 EndMode2D();
