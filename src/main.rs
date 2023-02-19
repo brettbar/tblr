@@ -1,11 +1,9 @@
 mod player;
 
-use raylib_ffi::*;
-use std::{
-    ffi::{CString},
-};
 use crate::player::player_hub;
 use crate::player::player_hub::Renderable;
+use raylib_ffi::*;
+use std::ffi::CString;
 
 fn main() {
     println!("Hello, world!");
@@ -64,22 +62,22 @@ fn main() {
 
         while !WindowShouldClose() {
             // Update
-            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
                 players[0].transform.y -= 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
                 players[0].transform.x -= 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
                 players[0].transform.y += 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
                 players[0].transform.x += 2.;
             }
 
             camera.target = Vector2 {
-                x: players[0].transform.x,
-                y: players[0].transform.y,
+                x: players[0].transform.x + (players[0].transform.width / 2.),
+                y: players[0].transform.y + (players[0].transform.height / 2.),
             };
 
             // Draw
