@@ -22,6 +22,7 @@ fn main() {
             a: 255,
         };
 
+        SetConfigFlags(ConfigFlags_FLAG_WINDOW_RESIZABLE);
         InitWindow(screen_width, screen_height, title.as_ptr());
 
         let mut players: Vec<player_hub::Player> = vec![
@@ -62,22 +63,29 @@ fn main() {
 
         while !WindowShouldClose() {
             // Update
+
+            // These look backwards but its to keep the camera "fixed"
+            // On player 1
             if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
-                players[0].transform.y -= 2.;
-            }
-            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
-                players[0].transform.x -= 2.;
-            }
-            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
                 players[0].transform.y += 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
                 players[0].transform.x += 2.;
+            }
+            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
+                players[0].transform.y -= 2.;
+            }
+            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
+                players[0].transform.x -= 2.;
             }
 
             camera.target = Vector2 {
                 x: players[0].transform.x + (players[0].transform.width / 2.),
                 y: players[0].transform.y + (players[0].transform.height / 2.),
+            };
+            camera.offset = Vector2 {
+                x: GetScreenWidth() as f32 / 2.,
+                y: GetScreenHeight() as f32 / 2.,
             };
 
             // Draw

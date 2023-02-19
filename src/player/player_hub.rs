@@ -17,8 +17,8 @@ impl Player {
             transform: Rectangle {
                 x: 0.,
                 y: 0.,
-                width: 400.,
-                height: 400.,
+                width: 200.,
+                height: 200.,
             },
         }
     }
@@ -41,8 +41,8 @@ impl Renderable for Player {
 
             DrawText(
                 CString::new(self.name).unwrap().into_raw(),
-                self.transform.x as i32 + 200,
-                self.transform.y as i32 + 200,
+                self.transform.x as i32 + (self.transform.width / 2.) as i32,
+                self.transform.y as i32 + (self.transform.height / 2.) as i32,
                 32,
                 Color {
                     r: 255,
