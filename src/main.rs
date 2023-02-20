@@ -43,11 +43,9 @@ fn main() {
         let copy_vec = players.to_vec();
         for (i, player) in players.iter_mut().enumerate() {
             if i > 0 {
-                println!("{}", player.name);
                 let x = (copy_vec[i-1].transform.x as i32 + i as i32) << 8;
                 let y = (copy_vec[i-1].transform.y as i32 + i as i32) << 8;
-                println!("{0} {1}", x, y);
-                player.generate_position(x as f32, y as f32)
+                player.set_position(x as f32, y as f32)
             }
         }
 
@@ -108,8 +106,20 @@ fn main() {
             }
             EndDrawing();
 
-            if CheckCollisionRecs(players[0].transform, players[1].transform) {
-                println!("{}", "collision")
+
+            // Handle collisions 
+            let p1 = players[0].transform;
+            let p2 = players[1].transform;
+            if CheckCollisionRecs(p1, p2) {
+                // Gather collistion vector/rectangle
+                let cr = GetCollisionRec(p1, p2);
+                println!("{0} {1}", p1.x, p2.x);
+                println!("Col Rec {0} {1}", cr.x, cr.y);
+                if cr.y as i32 > 256 {
+                    players[0].set_position(cr.x + p1.x, cr.y + p1.y);
+                } else {
+                    players[0].set_position(cr.x - p1.x, cr.y - p1.y);
+                }
             }
         }
     }

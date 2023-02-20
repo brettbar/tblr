@@ -28,7 +28,7 @@ pub trait Renderable {
 }
 
 pub trait Position {
-    fn generate_position(&mut self, x: f32, y: f32);
+    fn set_position(&mut self, x: f32, y: f32);
 }
 
 impl Renderable for Player {
@@ -59,7 +59,7 @@ impl Renderable for Player {
 }
 
 impl Position for Player {
-    fn generate_position(&mut self, x: f32, y: f32) {
+    fn set_position(&mut self, x: f32, y: f32) {
         self.transform.x = x as f32;
         self.transform.y = y as f32;
     }
