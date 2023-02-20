@@ -1,10 +1,16 @@
 use raylib_ffi::*;
 use std::ffi::CString;
 
+#[derive(Clone)]
+struct UserCoordinates {
+    x: i32,
+    y: i32,
+}
+
 // player_hub is the factory for player creation
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub struct Player {
-    name: &'static str,
+    pub name: &'static str,
     color: Color,
     pub transform: Rectangle,
 }
@@ -17,8 +23,8 @@ impl Player {
             transform: Rectangle {
                 x: 0.,
                 y: 0.,
-                width: 200.,
-                height: 200.,
+                width: 100.,
+                height: 100.,
             },
         }
     }
@@ -26,6 +32,10 @@ impl Player {
 
 pub trait Renderable {
     fn draw(&self);
+}
+
+pub trait Position {
+    fn generate_position(&mut self, x: f32, y: f32);
 }
 
 impl Renderable for Player {
@@ -41,9 +51,9 @@ impl Renderable for Player {
 
             DrawText(
                 CString::new(self.name).unwrap().into_raw(),
-                self.transform.x as i32 + (self.transform.width / 2.) as i32,
-                self.transform.y as i32 + (self.transform.height / 2.) as i32,
-                32,
+                self.transform.x as i32 + (self.transform.width / 2.75) as i32,
+                self.transform.y as i32 + (self.transform.height / 2.5) as i32,
+                16,
                 Color {
                     r: 255,
                     g: 255,
@@ -52,5 +62,12 @@ impl Renderable for Player {
                 },
             );
         }
+    }
+}
+
+impl Position for Player {
+    fn generate_position(&mut self, x: f32, y: f32) {
+        self.transform.x = x as f32;
+        self.transform.y = y as f32;
     }
 }

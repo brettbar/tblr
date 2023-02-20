@@ -2,8 +2,10 @@ mod player;
 
 use crate::player::player_hub;
 use crate::player::player_hub::Renderable;
+use crate::player::player_hub::Position;
 use raylib_ffi::*;
 use std::ffi::CString;
+use std::mem;
 
 const RED: Color = Color {
     r: 255,
@@ -39,6 +41,17 @@ fn main() {
             player_hub::Player::new("Sally", GREEN),
         ];
 
+        let copy_vec = players.to_vec();
+        for (i, player) in players.iter_mut().enumerate() {
+            if i > 0 {
+                println!("{}", player.name);
+                let x = (copy_vec[i-1].transform.x as i32 + i as i32) << 8;
+                let y = (copy_vec[i-1].transform.y as i32 + i as i32) << 8;
+                println!("{0} {1}", x, y);
+                player.generate_position(x as f32, y as f32)
+            }
+        }
+
         let mut camera = Camera2D {
             target: Vector2 {
                 x: players[0].transform.x - (players[0].transform.width as f32 / 2.),
@@ -58,16 +71,16 @@ fn main() {
             // Update
 
             // These look backwards but its to keep the camera "fixed" on player 1
-            if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
                 players[0].transform.y += 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
                 players[0].transform.x += 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
                 players[0].transform.y -= 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
                 players[0].transform.x -= 2.;
             }
 
@@ -86,6 +99,7 @@ fn main() {
                 BeginMode2D(camera);
                 {
                     ClearBackground(GREY);
+
 
                     for player in players.iter() {
                         player.draw();
