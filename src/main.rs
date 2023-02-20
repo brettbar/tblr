@@ -5,7 +5,6 @@ use crate::player::player_hub::Renderable;
 use crate::player::player_hub::Position;
 use raylib_ffi::*;
 use std::ffi::CString;
-use std::mem;
 
 const RED: Color = Color {
     r: 255,
@@ -71,16 +70,16 @@ fn main() {
             // Update
 
             // These look backwards but its to keep the camera "fixed" on player 1
-            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
                 players[0].transform.y += 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
                 players[0].transform.x += 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
                 players[0].transform.y -= 2.;
             }
-            if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
+            if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
                 players[0].transform.x -= 2.;
             }
 
@@ -108,6 +107,10 @@ fn main() {
                 EndMode2D();
             }
             EndDrawing();
+
+            if CheckCollisionRecs(players[0].transform, players[1].transform) {
+                println!("{}", "collision")
+            }
         }
     }
 }

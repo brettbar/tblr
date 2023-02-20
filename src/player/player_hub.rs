@@ -1,12 +1,5 @@
 use raylib_ffi::*;
 use std::ffi::CString;
-
-#[derive(Clone)]
-struct UserCoordinates {
-    x: i32,
-    y: i32,
-}
-
 // player_hub is the factory for player creation
 #[derive(Clone)]
 pub struct Player {
