@@ -1,8 +1,9 @@
 mod player;
 
 use crate::player::player_hub;
-use crate::player::player_hub::Renderable;
+use crate::player::player_hub::Movable;
 use crate::player::player_hub::Position;
+use crate::player::player_hub::Renderable;
 use raylib_ffi::*;
 use std::ffi::CString;
 
@@ -36,15 +37,15 @@ fn main() {
         InitWindow(screen_width, screen_height, title.as_ptr());
 
         let mut players: Vec<player_hub::Player> = vec![
-            player_hub::Player::new("Bob", RED),
-            player_hub::Player::new("Sally", GREEN),
+            player_hub::Player::new("Bob", RED, true),
+            player_hub::Player::new("Sally", GREEN, false),
         ];
 
         let copy_vec = players.to_vec();
         for (i, player) in players.iter_mut().enumerate() {
             if i > 0 {
-                let x = (copy_vec[i-1].transform.x as i32 + i as i32) << 8;
-                let y = (copy_vec[i-1].transform.y as i32 + i as i32) << 8;
+                let x = (copy_vec[i - 1].transform.x as i32 + i as i32) << 8;
+                let y = (copy_vec[i - 1].transform.y as i32 + i as i32) << 8;
                 player.set_position(x as f32, y as f32)
             }
         }
@@ -66,19 +67,29 @@ fn main() {
 
         while !WindowShouldClose() {
             // Update
+            let mut distance_increment = 2.;
 
+            if IsKeyDown(KeyboardKey_KEY_LEFT_SHIFT.try_into().unwrap()) {
+                distance_increment *= 5.;
+            }
             // These look backwards but its to keep the camera "fixed" on player 1
             if IsKeyDown(KeyboardKey_KEY_S.try_into().unwrap()) {
-                players[0].transform.y += 2.;
+                players[0].move_down(distance_increment);
             }
             if IsKeyDown(KeyboardKey_KEY_D.try_into().unwrap()) {
-                players[0].transform.x += 2.;
+                players[0].move_right(distance_increment);
             }
             if IsKeyDown(KeyboardKey_KEY_W.try_into().unwrap()) {
-                players[0].transform.y -= 2.;
+                players[0].move_up(distance_increment);
             }
             if IsKeyDown(KeyboardKey_KEY_A.try_into().unwrap()) {
-                players[0].transform.x -= 2.;
+                players[0].move_left(distance_increment);
+            }
+            if IsKeyDown(KeyboardKey_KEY_J.try_into().unwrap()) {
+                players[0].rotate_line_left(0.1)
+            }
+            if IsKeyDown(KeyboardKey_KEY_K.try_into().unwrap()) {
+                players[0].rotate_line_right(0.1)
             }
 
             camera.target = Vector2 {
@@ -97,7 +108,6 @@ fn main() {
                 {
                     ClearBackground(GREY);
 
-
                     for player in players.iter() {
                         player.draw();
                     }
@@ -106,8 +116,7 @@ fn main() {
             }
             EndDrawing();
 
-
-            // Handle collisions 
+            // Handle collisions
             let p1 = players[0].transform;
             let p2 = players[1].transform;
             if CheckCollisionRecs(p1, p2) {
